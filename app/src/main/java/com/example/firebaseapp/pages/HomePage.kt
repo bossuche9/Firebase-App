@@ -33,6 +33,7 @@ import coil.compose.AsyncImage
 import com.example.firebaseapp.AuthState
 import com.example.firebaseapp.AuthViewModel
 import android.Manifest
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -133,13 +134,14 @@ fun HomePage(
             Text(text = stringResource(R.string.sign_out))
         }
             // Preview Image
+        uri?.let {
             AsyncImage(
                 model = uri,
                 contentDescription = null,
                 modifier = if(isCameraImage){
                     Modifier
                         .fillMaxWidth()
-                        .wrapContentHeight()
+                        .height(300.dp)
                         .padding(8.dp)
                 } else{
                     Modifier
@@ -147,20 +149,18 @@ fun HomePage(
                         .height(300.dp)
                         .padding(8.dp)
                 },
-                contentScale = ContentScale.FillWidth
+                contentScale = if (isCameraImage) ContentScale.Fit else ContentScale.FillWidth
             )
-
+            Spacer(Modifier.height(8.dp))
 
             Button(onClick = {
-                uri?.let {
-                    StorageUtil.uploadToStorage(uri = it, context = context, type = context.getString(
-                        R.string.image
-                    ))
-                }
-
+                StorageUtil.uploadToStorage(uri = it, context = context, type = context.getString(R.string.image))
             }) {
                 Text(stringResource(R.string.upload))
             }
+        }
+
+
         }
     }
 

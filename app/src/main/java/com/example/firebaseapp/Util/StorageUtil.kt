@@ -25,7 +25,7 @@ object StorageUtil {
     fun createImageUri(context: Context): Uri {
         val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
         val filename = "JPEG_${timestamp}.jpg"
-        // This writes into your app's cache directory
+        // This writes into the app's cache directory
         val file = File(context.cacheDir, filename)
         return FileProvider.getUriForFile(
             context,
@@ -45,7 +45,7 @@ object StorageUtil {
         storageRef
             .putFile(uri)
             .addOnSuccessListener { snapshot ->
-                // get the download URL if you want
+                // gets the download URL
                 snapshot.storage.downloadUrl
                     .addOnSuccessListener { downloadUri ->
                         val data = hashMapOf(
@@ -74,7 +74,6 @@ object StorageUtil {
 
                     }
                     .addOnFailureListener { e ->
-                        // now you’ll see the real exception
                         Toast.makeText(
                             context,
                             "Could not get download URL:\n ${e.localizedMessage}",
