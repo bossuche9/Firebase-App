@@ -1,7 +1,9 @@
 package com.example.firebaseapp.Util
 
+import android.content.ContentValues
 import android.content.Context
 import android.net.Uri
+import android.provider.MediaStore
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import com.google.firebase.FirebaseApp
@@ -18,6 +20,19 @@ import java.util.Locale
 import java.util.UUID
 
 object StorageUtil {
+
+
+    fun createImageUri(context: Context): Uri {
+        val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
+        val filename = "JPEG_${timestamp}.jpg"
+        // This writes into your app's cache directory
+        val file = File(context.cacheDir, filename)
+        return FileProvider.getUriForFile(
+            context,
+            "${context.packageName}.provider",
+            file
+        )
+    }
 
     fun uploadToStorage(uri: Uri, context: Context, type: String) {
 
@@ -76,15 +91,5 @@ object StorageUtil {
             }
     }
 
-    fun createImageUri(context: Context): Uri {
-        val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
-        val filename = "JPEG_${timestamp}.jpg"
-        // This writes into your app's cache directory
-        val file = File(context.cacheDir, filename)
-        return FileProvider.getUriForFile(
-            context,
-            "${context.packageName}.provider",
-            file
-        )
-    }
+
 }
