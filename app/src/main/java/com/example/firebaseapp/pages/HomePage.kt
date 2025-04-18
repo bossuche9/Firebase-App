@@ -82,6 +82,14 @@ fun HomePage(
         }
     }
 
+    val singlePhotoPicker = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.PickVisualMedia(),
+        onResult = {
+            uri = it
+            isCameraImage = false
+        }
+    )
+
     val permissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
@@ -94,13 +102,7 @@ fun HomePage(
         }
     }
 
-    val singlePhotoPicker = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.PickVisualMedia(),
-        onResult = {
-            uri = it
-            isCameraImage = false
-        }
-    )
+
 
 
     Column(

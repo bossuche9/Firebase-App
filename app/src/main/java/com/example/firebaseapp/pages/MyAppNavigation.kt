@@ -21,9 +21,7 @@ fun MyAppNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel)
         composable("home"){
             HomePage(modifier,navController,authViewModel)
         }
-        composable("upload") {
-            //PhotoUploadScreen()
-        }
+
     })
 
 
