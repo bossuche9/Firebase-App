@@ -7,10 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -24,15 +21,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.firebaseapp.AuthState
 import com.example.firebaseapp.AuthViewModel
+import com.example.firebaseapp.R
 
 @Composable
 fun LoginPage(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel) {
@@ -44,10 +42,9 @@ fun LoginPage(modifier: Modifier = Modifier, navController: NavController, authV
         mutableStateOf("")
     }
 
-    var passwordVisible by remember { mutableStateOf(false) }
+    val passwordVisible by remember { mutableStateOf(false) }
 
     val authState = authViewModel.authState.observeAsState()
-    val errorMsg = (authState as? AuthState.Error)?. message
 
     val context = LocalContext.current
 
@@ -65,7 +62,7 @@ fun LoginPage(modifier: Modifier = Modifier, navController: NavController, authV
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Login Page", fontSize = 32.sp)
+        Text(text = stringResource(R.string.login_page), fontSize = 32.sp)
 
         Spacer(modifier = Modifier.height((16.dp)))
 
@@ -75,7 +72,7 @@ fun LoginPage(modifier: Modifier = Modifier, navController: NavController, authV
             email = it
         },
             label = {
-                Text(text = "Email")
+                Text(text = stringResource(R.string.email))
             }
         )
 
@@ -87,7 +84,7 @@ fun LoginPage(modifier: Modifier = Modifier, navController: NavController, authV
                 password = it
             },
             label = {
-                Text(text = "Password")
+                Text(text = stringResource(R.string.password))
             },
 
             visualTransformation = if(passwordVisible) VisualTransformation.None
@@ -113,7 +110,7 @@ Button(onClick = {
 },
   enabled = authState.value != AuthState.Loading
 ){
-  Text(text = "Login")
+  Text(text = stringResource(R.string.login))
 }
 
 Spacer(modifier = Modifier.height((8.dp)))
@@ -121,7 +118,7 @@ Spacer(modifier = Modifier.height((8.dp)))
 TextButton(onClick = {
   navController.navigate("signup")
 }) {
-  Text(text = "Dont have an account, Signup")
+  Text(text = stringResource(R.string.dont_have_an_account_signup))
 }
 }
 }

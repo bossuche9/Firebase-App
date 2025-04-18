@@ -1,10 +1,8 @@
 package com.example.firebaseapp
 
-import android.provider.ContactsContract.CommonDataKinds.Email
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 
 class AuthViewModel : ViewModel() {

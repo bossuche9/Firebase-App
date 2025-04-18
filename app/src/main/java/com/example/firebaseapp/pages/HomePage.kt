@@ -21,14 +21,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.firebaseapp.AuthViewModel
-import com.example.firebaseapp.ui.theme.FirebaseAppTheme
 import coil.compose.AsyncImage
 import com.example.firebaseapp.AuthState
+import com.example.firebaseapp.AuthViewModel
+import com.example.firebaseapp.R
 import com.example.firebaseapp.Util.StorageUtil
+import com.example.firebaseapp.ui.theme.FirebaseAppTheme
 
 
 @Composable
@@ -66,7 +68,7 @@ fun HomePage(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text(text = "Home Page", fontSize = 32.sp)
+        Text(text = stringResource(R.string.home_page), fontSize = 32.sp)
 
 
         Button(onClick = {
@@ -74,24 +76,26 @@ fun HomePage(
                 PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
             )
         }) {
-            Text("Choose image")
+            Text(stringResource(R.string.choose_image))
 
         }
 
         TextButton(onClick = {
             authViewModel.signout()
         }) {
-            Text(text = "Sign out")
+            Text(text = stringResource(R.string.sign_out))
         }
             AsyncImage(model = uri, contentDescription = null, modifier = Modifier)
 
             Button(onClick = {
                 uri?.let {
-                    StorageUtil.uploadToStorage(uri = it, context = context, type = "image")
+                    StorageUtil.uploadToStorage(uri = it, context = context, type = context.getString(
+                        R.string.image
+                    ))
                 }
 
             }) {
-                Text("Upload")
+                Text(stringResource(R.string.upload))
             }
         }
     }

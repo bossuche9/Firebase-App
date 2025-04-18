@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">FirebaseApp</string>
+    <string name="already_have_an_account_login_here">Already have an account, Login here</string>
+    <string name="create_account">Create account</string>
+    <string name="dont_have_an_account_signup">Dont have an account, Signup</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="login_page">Login Page</string>
+    <string name="choose_image">Choose image</string>
+    <string name="home_page">Home Page</string>
+    <string name="sign_out">Sign out</string>
+    <string name="upload">Upload</string>
+    <string name="image">image</string>
 </resources>

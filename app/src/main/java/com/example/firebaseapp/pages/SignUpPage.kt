@@ -21,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -29,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.firebaseapp.AuthState
 import com.example.firebaseapp.AuthViewModel
+import com.example.firebaseapp.R
 
 @Composable
 fun SignupPage(modifier: Modifier = Modifier,navController: NavController, authViewModel: AuthViewModel){
@@ -92,7 +94,7 @@ fun SignupPage(modifier: Modifier = Modifier,navController: NavController, authV
         Button(onClick = {
             authViewModel.signup(email,password)
         }){
-            Text(text = "Create account")
+            Text(text = stringResource(R.string.create_account))
         }
 
         Spacer(modifier = Modifier.height((8.dp)))
@@ -100,7 +102,7 @@ fun SignupPage(modifier: Modifier = Modifier,navController: NavController, authV
         TextButton(onClick = {
             navController.navigate("login")
         }) {
-            Text(text = "Already have an account, Login here")
+            Text(text = stringResource(R.string.already_have_an_account_login_here))
         }
     }
 }
