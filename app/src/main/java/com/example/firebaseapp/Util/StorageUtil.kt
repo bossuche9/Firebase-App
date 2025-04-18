@@ -20,7 +20,6 @@ object StorageUtil {
 
         FirebaseApp.initializeApp(context.applicationContext)
 
-
         val ext = if (type == "image") "jpg" else "mp4"
         val storageRef: StorageReference =
             Firebase.storage.reference.child("images/${UUID.randomUUID()}.$ext")
