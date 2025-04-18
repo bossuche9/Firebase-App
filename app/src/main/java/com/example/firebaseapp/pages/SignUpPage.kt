@@ -42,7 +42,7 @@ fun SignupPage(modifier: Modifier = Modifier,navController: NavController, authV
         mutableStateOf("")
     }
 
-    var passwordVisible by remember { mutableStateOf(false) }
+    val passwordVisible by remember { mutableStateOf(false) }
 
     val authState = authViewModel.authState.observeAsState()
     val context = LocalContext.current

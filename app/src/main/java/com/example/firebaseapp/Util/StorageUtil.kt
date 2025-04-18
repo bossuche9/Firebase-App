@@ -5,6 +5,9 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
@@ -30,18 +33,44 @@ object StorageUtil {
                 // get the download URL if you want
                 snapshot.storage.downloadUrl
                     .addOnSuccessListener { downloadUri ->
+                        val data = hashMapOf(
+                            "url" to downloadUri.toString(),
+                            "uploadedAt" to FieldValue.serverTimestamp(),
+                            "uploaderId" to Firebase.auth.currentUser?.uid
+                        )
+
+                        Firebase.firestore
+                            .collection("images")
+                            .add(data)
+                            .addOnSuccessListener {
+                                Toast.makeText(
+                                    context,
+                                    "Upload + Firestore write succeeded!",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                            .addOnFailureListener { e ->
+                                Toast.makeText(
+                                    context,
+                                    "Storage ok, Firestore write failed:\n${e.localizedMessage}",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+
+                    }
+                    .addOnFailureListener { e ->
+                        // now you’ll see the real exception
                         Toast.makeText(
                             context,
-                            "Upload succeeded!\n$downloadUri",
+                            "Could not get download URL:\n ${e.localizedMessage}",
                             Toast.LENGTH_LONG
                         ).show()
                     }
             }
-            .addOnFailureListener { e ->
-                // now you’ll see the real exception
+            .addOnFailureListener{ e ->
                 Toast.makeText(
                     context,
-                    "Upload failed: ${e.localizedMessage}",
+                    "Upload failed:\n${e.localizedMessage}",
                     Toast.LENGTH_LONG
                 ).show()
             }
